@@ -4095,10 +4095,11 @@ p, li { white-space: pre-wrap; }
                     <param>::sep::Low Voltage Alert Pushback</param>
                     <param>tiltback_lv_angle</param>
                     <param>tiltback_lv_speed</param>
-                    <param>::sep::Board Speed Alert Pushback</param>
+                    <!--<param>::sep::Board Speed Alert Pushback</param>
                     <param>tiltback_board_speed</param>
                     <param>tiltback_board_speed_angle</param>
-                    <param>tiltback_board_speed_speed</param>
+                    <param>tiltback_board_speed_speed</param>-->
+                    <param>::sep::Board Speed Alert Pushback - 20km/h</param>
                 </subgroupParams>
             </subgroup>
             <subgroup>
@@ -4107,8 +4108,8 @@ p, li { white-space: pre-wrap; }
                     <param>::sep::Audible Feedback (firmware 6.05+)</param>
                     <param>haptic.duty.frequency</param>
                     <param>haptic.duty.strength</param>
-                    <param>haptic.board_speed.frequency</param>
-                    <param>haptic.board_speed.strength</param>
+                    <!--<param>haptic.board_speed.frequency</param>
+                    <param>haptic.board_speed.strength</param>-->
                     <param>haptic.error.frequency</param>
                     <param>haptic.error.strength</param>
                     <param>::sep::Vibration Feedback</param>

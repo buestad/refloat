@@ -220,6 +220,16 @@ static void configure(Data *d) {
     }
 }
 
+static void hardcoded_speed_limit(RefloatConfig *cfg) {
+    // Pushback
+    cfg->tiltback_board_speed = 20.0; // 20 km/h
+    cfg->tiltback_board_speed_angle = 7.0; // 7 degrees nose up
+    cfg->tiltback_board_speed_speed = 2.0; // 2 deg/s 
+    // Haptic feedback
+    cfg->haptic.board_speed.frequency = 395; // Hz
+    cfg->haptic.board_speed.strength = 3; // Volt
+}
+
 static void leds_headlights_switch(CfgLeds *cfg_leds, LcmData *lcm, bool headlights_on) {
     cfg_leds->headlights_on = headlights_on;
     lcm_configure(lcm, cfg_leds);
@@ -710,6 +720,7 @@ static void refloat_thd(void *arg) {
     Data *d = (Data *) arg;
 
     configure(d);
+    hardcoded_speed_limit(&d->float_conf);
 
     while (!VESC_IF->should_terminate()) {
         time_update(&d->time, d->state.state);
