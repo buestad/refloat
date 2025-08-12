@@ -631,12 +631,12 @@ static void calculate_setpoint_target(Data *d) {
             d->state.sat = SAT_NONE;
             d->setpoint_target = 0;
         }
-    } else if (d->float_conf.tiltback_speed > 0.0 &&
-               fabsf(d->motor.speed) > d->float_conf.tiltback_speed) {
+    } else if (fabsf(d->motor.speed) > 20.0) {
+        // Speed tiltback threshold hardcoded to 20km/h, titlback angle to 8 degrees
         if (d->motor.speed > 0) {
-            d->setpoint_target = d->float_conf.tiltback_duty_angle;
+            d->setpoint_target = 8.0;
         } else {
-            d->setpoint_target = -d->float_conf.tiltback_duty_angle;
+            d->setpoint_target = -8.0;
         }
         d->beep_reason = BEEP_SPEED;
         d->state.sat = SAT_PB_SPEED;
