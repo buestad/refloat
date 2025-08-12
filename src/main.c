@@ -182,7 +182,8 @@ static void configure(Data *d) {
     d->tiltback_hv_step_size = d->float_conf.tiltback_hv_speed / d->float_conf.hertz;
     d->tiltback_lv_step_size = d->float_conf.tiltback_lv_speed / d->float_conf.hertz;
     d->tiltback_return_step_size = d->float_conf.tiltback_return_speed / d->float_conf.hertz;
-
+    // Speed tiltback rate hardcoded to 3deg/s
+    d->tiltback_speed_step_size = 3.0 / d->float_conf.hertz;
     // Feature: Soft Start
     d->softstart_ramp_step_size = (float) 100 / d->float_conf.hertz;
 
@@ -310,7 +311,7 @@ static float get_setpoint_adjustment_step_size(Data *d) {
     case (SAT_PB_LOW_VOLTAGE):
         return d->tiltback_lv_step_size;
     case (SAT_PB_SPEED):
-        return d->tiltback_duty_step_size;
+        return d->tiltback_speed_step_size;
     default:
         return 0;
     }
@@ -648,12 +649,12 @@ static void calculate_setpoint_target(Data *d) {
             d->state.sat = SAT_NONE;
             d->setpoint_target = 0;
         }
-    } else if (d->float_conf.tiltback_speed > 0.0 &&
-               fabsf(d->motor.speed) > d->float_conf.tiltback_speed) {
+    } else if (fabsf(d->motor.speed) > 20.0) {
+        // Speed tiltback threshold hardcoded to 20km/h, titlback angle to 8 degrees
         if (d->motor.speed > 0) {
-            d->setpoint_target = d->float_conf.tiltback_duty_angle;
+            d->setpoint_target = 8.0;
         } else {
-            d->setpoint_target = -d->float_conf.tiltback_duty_angle;
+            d->setpoint_target = -8.0;
         }
         d->beep_reason = BEEP_SPEED;
         d->state.sat = SAT_PB_SPEED;
