@@ -504,6 +504,7 @@ Item {
                 "tiltback_hv_speed",
                 "tiltback_lv_angle",
                 "tiltback_lv_speed",
+                "persistent_fatal_error",
                 "disabled",
                 "fault_adc1",
                 "fault_adc2",
